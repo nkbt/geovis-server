@@ -4,7 +4,7 @@
 'use strict';
 
 
-const lib = require('.');
+const run = require('.');
 
 
-console.log(lib);
+run();
