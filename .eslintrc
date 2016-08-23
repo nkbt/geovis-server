@@ -1,0 +1,20 @@
+{
+  "extends": "airbnb-base",
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "script",
+    "ecmaFeatures": {
+      "classes": false,
+      "generators": false,
+      "modules": false,
+      "objectLiteralDuplicateProperties": false,
+      "superInFunctions": false
+    }
+  },
+  "rules": {
+    "strict": [2, "safe"],
+    "object-curly-spacing": [2, "never"],
+    "no-console": 0,
+    "import/no-extraneous-dependencies": 0
+  }
+}

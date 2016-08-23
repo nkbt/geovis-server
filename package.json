@@ -1,0 +1,45 @@
+{
+  "name": "geovis-mock",
+  "version": "0.0.0",
+  "description": "Mock server to feed GeoVis with data",
+  "main": "index.js",
+  "bin": {
+    "geovis-mock": "bin.js"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "test": "node test",
+    "cov": "cross-env NODE_ENV=test istanbul cover --report text --report html --report lcov --dir coverage test",
+    "tap-xunit": "tap-xunit",
+    "precoveralls": "npm run cov -s",
+    "coveralls": "cat coverage/lcov.info | coveralls"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/nkbt/geovis-mock.git"
+  },
+  "keywords": [
+    "cli",
+    "test",
+    "promise"
+  ],
+  "author": "Nik Butenko <nik@butenko.me>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nkbt/geovis-mock/issues"
+  },
+  "homepage": "https://github.com/nkbt/geovis-mock#readme",
+  "devDependencies": {
+    "coveralls": "2.11.12",
+    "cross-env": "2.0.0",
+    "eslint": "3.3.1",
+    "eslint-config-airbnb-base": "5.0.3",
+    "eslint-plugin-import": "1.14.0",
+    "istanbul": "0.4.5",
+    "mkdirp": "0.5.1",
+    "tap-xunit": "1.4.0",
+    "tape": "4.6.0"
+  },
+  "dependencies": {
+  }
+}
