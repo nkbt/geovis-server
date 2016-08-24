@@ -2,10 +2,10 @@
 
 
 const test = require('tape');
-const lib = require('..');
+const run = require('..');
 
 
 test('Test', t => {
-  t.equal(lib, 'OK', 'should be ok');
+  t.ok(run instanceof Function, 'should be function');
   t.end();
 });
