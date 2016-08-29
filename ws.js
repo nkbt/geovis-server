@@ -34,7 +34,7 @@ const responder = ws => (err, payload) => {
 const createProcessors = (ws, res) => {
   const applied = {};
   Object.keys(res).forEach(key => {
-    applied[key] = res[key](responder(ws));
+    applied[key] = res[key](responder(ws), ws);
     if (typeof applied[key].close !== 'function') {
       applied[key].close = () => {};
     }

@@ -12,6 +12,7 @@
     }
   },
   "rules": {
+    "no-unused-vars": [2, {"argsIgnorePattern": "^_", "varsIgnorePattern": "^_"}],
     "strict": [2, "safe"],
     "object-curly-spacing": [2, "never"],
     "no-console": 0,

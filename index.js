@@ -3,6 +3,7 @@
 
 const ws = require('./ws');
 const ping = require('./res/ping');
+const geo = require('./res/geo');
 
 
 const {
@@ -11,4 +12,12 @@ const {
 } = process.env;
 
 
-module.exports = () => ws({WS_HOST, WS_PORT, res: ping});
+module.exports = () => ws({
+  WS_HOST,
+  WS_PORT,
+  res: Object.assign(
+    {},
+    ping,
+    geo
+  )
+});
