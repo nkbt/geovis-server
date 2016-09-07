@@ -20,8 +20,94 @@ npm install --global geovis-mock
 
 ## Usage
 
+
+### Running server
+
 ```js
-geovis-mock
+const {run} = require('@nkbt/geovis-mock');
+
+const {
+  WS_HOST = '0.0.0.0',
+  WS_PORT = 10000
+} = process.env;
+
+run({WS_HOST, WS_PORT});
+```
+
+
+### Supported actions
+
+1. PING
+
+```js
+request = {
+  "action": "PING"
+}
+
+// Response includes original request message
+response = {
+  "req": {
+    "action": "PING"
+  },
+  "res": {
+    "time": 1473282575430
+  }
+};
+```
+
+2. GEO
+
+```js
+request = {
+  "action": "GEO_START"
+}
+
+response = {
+  "req": {
+    "action": "GEO_START"
+  },
+  "res": [{
+    "srcLat": 55.751244,
+    "srcLon": 37.618423,
+    "dstLat": 49.246292,
+    "dstLon": -123.116226,
+    "value": 2
+  }]
+};
+
+response = {
+  "req": {
+    "action": "GEO_START"
+  },
+  "res": [{
+    "srcLat": -33.865143,
+    "srcLon": 151.2099,
+    "dstLat": -12.462827,
+    "dstLon": 130.841782,
+    "value": 7
+  }]
+};
+// and more responses until GEO_STOP is sent
+request = {
+  "action": "GEO_STOP"
+}
+// no responses anymore
+```
+
+### Logging
+
+```sh
+07:09 $ ./bin.js 
+running server on ws://0.0.0.0:10000
+Client connected
+<< {"action": "PING"}
+  >> {"req":{"action":"PING"},"res":{"time":1473282575430}}
+<< {"action": "GEO_START"}
+  >> {"req":{"action":"GEO_START"},"res":[{"srcLat":50.411198,"srcLon":30.446634,"dstLat":55.751244,"dstLon":37.618423,"value":3}]}
+  >> {"req":{"action":"GEO_START"},"res":[{"srcLat":55.751244,"srcLon":37.618423,"dstLat":49.246292,"dstLon":-123.116226,"value":2}]}
+  >> {"req":{"action":"GEO_START"},"res":[{"srcLat":50.411198,"srcLon":30.446634,"dstLat":55.751244,"dstLon":37.618423,"value":7}]}
+<< {"action": "GEO_STOP"}
+^C
 ```
 
 

@@ -71,6 +71,8 @@ const server = ({WS_HOST, WS_PORT, res}) => {
     ws.on('close', () =>
       Object.keys(processors).forEach(key => processors[key].close()));
   });
+
+  return wss;
 };
 
 
