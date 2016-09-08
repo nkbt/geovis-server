@@ -61,37 +61,14 @@ response = {
 request = {
   "action": "GEO_START"
 }
+// no response, but will add client to broadcast list until GEO_STOP is sent
 
-response = {
-  "req": {
-    "action": "GEO_START"
-  },
-  "res": [{
-    "srcLat": 55.751244,
-    "srcLon": 37.618423,
-    "dstLat": 49.246292,
-    "dstLon": -123.116226,
-    "value": 2
-  }]
-};
 
-response = {
-  "req": {
-    "action": "GEO_START"
-  },
-  "res": [{
-    "srcLat": -33.865143,
-    "srcLon": 151.2099,
-    "dstLat": -12.462827,
-    "dstLon": 130.841782,
-    "value": 7
-  }]
-};
-// and more responses until GEO_STOP is sent
 request = {
   "action": "GEO_STOP"
 }
 // no responses anymore
+
 
 // broadcast GEO to all subscribers
 request = {
@@ -129,9 +106,10 @@ Client connected
 << {"action": "PING"}
   >> {"req":{"action":"PING"},"res":{"time":1473282575430}}
 << {"action": "GEO_START"}
-  >> {"req":{"action":"GEO_START"},"res":[{"srcLat":50.411198,"srcLon":30.446634,"dstLat":55.751244,"dstLon":37.618423,"value":3}]}
-  >> {"req":{"action":"GEO_START"},"res":[{"srcLat":55.751244,"srcLon":37.618423,"dstLat":49.246292,"dstLon":-123.116226,"value":2}]}
-  >> {"req":{"action":"GEO_START"},"res":[{"srcLat":50.411198,"srcLon":30.446634,"dstLat":55.751244,"dstLon":37.618423,"value":7}]}
+<< {"action":"GEO_BROADCAST","payload":[{"srcLat":50.411198,"srcLon":30.446634,"dstLat":55.751244,"dstLon":37.618423,"value":3}]}
+  >> {"req":{"action":"GEO_BROADCAST"},"res":[{"srcLat":50.411198,"srcLon":30.446634,"dstLat":55.751244,"dstLon":37.618423,"value":3}]}
+<< {"action":"GEO_BROADCAST","payload":[{srcLat":55.751244,"srcLon":37.618423,"dstLat":49.246292,"dstLon":-123.116226,"value":2}]}
+  >> {"req":{"action":"GEO_BROADCAST"},"res":[{"srcLat":55.751244,"srcLon":37.618423,"dstLat":49.246292,"dstLon":-123.116226,"value":2}]}
 << {"action": "GEO_STOP"}
 ^C
 ```
