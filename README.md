@@ -14,7 +14,7 @@ Server to feed GeoVis with data
 ## Installation
 
 ```sh
-npm install --global geovis-server
+npm install --global @nkbt/geovis-server
 ```
 
 
