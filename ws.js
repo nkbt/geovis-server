@@ -31,10 +31,10 @@ const responder = ws => (err, payload) => {
 };
 
 
-const createProcessors = (ws, res) => {
+const createProcessors = (ws, wss, res) => {
   const applied = {};
   Object.keys(res).forEach(key => {
-    applied[key] = res[key](responder(ws), ws);
+    applied[key] = res[key]({send: responder(ws), ws, wss});
     if (typeof applied[key].close !== 'function') {
       applied[key].close = () => {};
     }
@@ -50,7 +50,7 @@ const server = ({WS_HOST, WS_PORT, res}) => {
 
   wss.on('connection', () => console.log('Client connected'));
   wss.on('connection', ws => {
-    const processors = createProcessors(ws, res);
+    const processors = createProcessors(ws, wss, res);
 
     ws.on('message', raw => console.log('<<', raw.substr(0, 250)));
     ws.on('message', raw => {

@@ -29,7 +29,15 @@ const mkAttack = ([srcLat, srcLon], [dstLat, dstLon]) => ({
 });
 
 
-const start = (send, ws) => Object.assign(req => {
+const stop = ({send: _send, ws, wss}) => _req => {
+  clearInterval(ws.interval);
+  if (wss.geo) {
+    wss.geo.splice(wss.geo.indexOf(ws), 1);
+  }
+};
+
+
+const start = ({send, ws, wss}) => Object.assign(req => {
   const sendGeo = () => {
     send(null, {
       req,
@@ -38,13 +46,14 @@ const start = (send, ws) => Object.assign(req => {
   };
 
   Object.assign(ws, {interval: setInterval(sendGeo, 2000)});
+  Object.assign(wss, {geo: wss.geo ? wss.geo.concat([ws]) : [ws]});
+
   sendGeo();
-}, {close: () => clearInterval(ws.interval)});
-
-
-const stop = (send, ws) => _req => {
-  clearInterval(ws.interval);
-};
+}, {
+  close: () => {
+    stop({send, ws, wss});
+  }
+});
 
 
 exports.GEO_START = start;
