@@ -46,7 +46,7 @@ const start = ({send, ws, wss}) => Object.assign(req => {
   };
 
   Object.assign(ws, {interval: setInterval(sendGeo, 2000)});
-  Object.assign(wss, {geo: wss.geo ? wss.geo.concat([ws]) : [ws]});
+  Object.assign(wss, {geo: wss.geo ? wss.geo.concat([send]) : [send]});
 
   sendGeo();
 }, {
@@ -56,6 +56,19 @@ const start = ({send, ws, wss}) => Object.assign(req => {
 });
 
 
+const broadcast = ({wss}) => Object.assign(request => {
+  if (!wss.geo) {
+    return;
+  }
+  const req = Object.assign({}, request);
+  const {payload: res} = request;
+  delete req.payload;
+
+  wss.geo.forEach(send => send(null, {req, res}));
+});
+
+
 exports.GEO_START = start;
 exports.GEO_STOP = stop;
+exports.GEO_BROADCAST = broadcast;
 
