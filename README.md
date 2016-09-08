@@ -1,20 +1,20 @@
-# geovis-mock [![npm](https://img.shields.io/npm/v/geovis-mock.svg?style=flat-square)](https://www.npmjs.com/package/geovis-mock)
+# geovis-server [![npm](https://img.shields.io/npm/v/geovis-server.svg?style=flat-square)](https://www.npmjs.com/package/geovis-server)
             
 [![Discord](https://img.shields.io/badge/chat-discord-blue.svg?style=flat-square)](https://discord.gg/013tGW1IMcW6Vd1o7)
 
-[![CircleCI](https://img.shields.io/circleci/project/nkbt/geovis-mock.svg?style=flat-square)](https://circleci.com/gh/nkbt/geovis-mock)
-[![Coverage](https://img.shields.io/coveralls/nkbt/geovis-mock.svg?style=flat-square)](https://codecov.io/github/nkbt/geovis-mock?branch=master)
-[![Dependencies](https://img.shields.io/david/nkbt/geovis-mock.svg?style=flat-square)](https://david-dm.org/nkbt/geovis-mock)
-[![Dev Dependencies](https://img.shields.io/david/dev/nkbt/geovis-mock.svg?style=flat-square)](https://david-dm.org/nkbt/geovis-mock#info=devDependencies)
+[![CircleCI](https://img.shields.io/circleci/project/nkbt/geovis-server.svg?style=flat-square)](https://circleci.com/gh/nkbt/geovis-server)
+[![Coverage](https://img.shields.io/coveralls/nkbt/geovis-server.svg?style=flat-square)](https://codecov.io/github/nkbt/geovis-server?branch=master)
+[![Dependencies](https://img.shields.io/david/nkbt/geovis-server.svg?style=flat-square)](https://david-dm.org/nkbt/geovis-server)
+[![Dev Dependencies](https://img.shields.io/david/dev/nkbt/geovis-server.svg?style=flat-square)](https://david-dm.org/nkbt/geovis-server#info=devDependencies)
 
 
-Mock server to feed GeoVis with data
+Server to feed GeoVis with data
 
 
 ## Installation
 
 ```sh
-npm install --global geovis-mock
+npm install --global geovis-server
 ```
 
 
@@ -24,7 +24,7 @@ npm install --global geovis-mock
 ### Running server
 
 ```js
-const {run} = require('@nkbt/geovis-mock');
+const {run} = require('@nkbt/geovis-server');
 
 const {
   WS_HOST = '0.0.0.0',
@@ -92,6 +92,32 @@ request = {
   "action": "GEO_STOP"
 }
 // no responses anymore
+
+// broadcast GEO to all subscribers
+request = {
+  "action": "GEO_BROADCAST",
+  "payload": [{
+    "srcLat": -33.865143,
+    "srcLon": 151.2099,
+    "dstLat": -12.462827,
+    "dstLon": 130.841782,
+    "value": 7
+  }]
+}
+
+// no response for sender, but will broadcast for all GEO_START subscribers: 
+broadcast = {
+  "req": {
+    "action": "GEO_BROADCAST"
+  },
+  "res": [{
+    "srcLat": -33.865143,
+    "srcLon": 151.2099,
+    "dstLat": -12.462827,
+    "dstLon": 130.841782,
+    "value": 7
+  }]
+};
 ```
 
 ### Logging
@@ -116,8 +142,8 @@ Client connected
 Currently is being developed and tested with the latest stable `Node 6` under `OSX`.
 
 ```bash
-git clone git@github.com:nkbt/geovis-mock.git
-cd geovis-mock
+git clone git@github.com:nkbt/geovis-server.git
+cd geovis-server
 npm install
 ```
 
