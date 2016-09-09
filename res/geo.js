@@ -12,7 +12,7 @@ const start = ({send, ws, wss}) => Object.assign(_req => {
   Object.assign(wss, {geo: wss.geo ? wss.geo.concat([send]) : [send]});
 }, {
   close: () => {
-    stop({send, ws, wss});
+    stop({send, ws, wss})();
   }
 });
 
