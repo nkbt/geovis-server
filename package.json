@@ -1,6 +1,6 @@
 {
   "name": "@nkbt/geovis-server",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "Server to feed GeoVis with data",
   "main": "index.js",
   "bin": {
