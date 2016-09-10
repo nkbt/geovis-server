@@ -3,13 +3,15 @@
 
 const stop = ({send: _send, ws, wss}) => _req => {
   if (wss.geo) {
-    wss.geo.splice(wss.geo.indexOf(ws), 1);
+    delete wss.geo[ws.id];
   }
 };
 
 
 const start = ({send, ws, wss}) => Object.assign(_req => {
-  Object.assign(wss, {geo: wss.geo ? wss.geo.concat([send]) : [send]});
+  Object.assign(wss, {
+    geo: wss.geo ? Object.assign(wss.geo, {[ws.id]: send}) : {[ws.id]: send}
+  });
 }, {
   close: () => {
     stop({send, ws, wss})();
@@ -25,7 +27,7 @@ const broadcast = ({wss}) => Object.assign(request => {
   const {payload: res} = request;
   delete req.payload;
 
-  wss.geo.forEach(send => send(null, {req, res}));
+  Object.keys(wss.geo).forEach(id => wss.geo[id](null, {req, res}));
 });
 
 
